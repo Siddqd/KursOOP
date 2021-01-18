@@ -4,7 +4,7 @@ class MedPatient :
     protected People
 {
 private:
-    int status;			//0 - умер, 1 - на лечении, 2 - выписан (-1 нет в базе данных)
+    int status;			//0 - СѓРјРµСЂ, 1 - РЅР° Р»РµС‡РµРЅРёРё, 2 - РІС‹РїРёСЃР°РЅ (-1 РЅРµС‚ РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С…)
     int chamber_ID;
     int history_ID;
     int doctor_ID;
@@ -12,8 +12,8 @@ private:
 public:
     MedPatient();
     look4();
-    MedPatient(int IDD, std::string fioo, data bdayy, int tell, int res_tell, int64_t poliss);//нужно вернуть IDpatient, вызов записи из MedHistory
+    MedPatient(int IDD, std::string fioo, data bdayy,
+                  int tell, int res_tell, int64_t poliss);//РЅСѓР¶РЅРѕ РІРµСЂРЅСѓС‚СЊ IDpatient, РІС‹Р·РѕРІ Р·Р°РїРёСЃРё РёР· MedHistory
     int AddNewData(MedPatient& pat, const char* filePat);
-    
-};
 
+};

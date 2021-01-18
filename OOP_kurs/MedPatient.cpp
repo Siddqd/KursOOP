@@ -18,8 +18,8 @@ int MedPatient::look4() {
         fPat.open(filePatient);
         if (fPat.is_open()) throw "Error_OpenFile";
         std::string bar;
-        fPat >> bar;                    // считываем первое значение из файла - это общее количество пациентов
-        
+        fPat >> bar;                    // СЃС‡РёС‚С‹РІР°РµРј РїРµСЂРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РёР· С„Р°Р№Р»Р° - СЌС‚Рѕ РѕР±С‰РµРµ РєРѕР»-РІРѕ РїР°С†РёРµРЅС‚РѕРІ
+
 
         fPat.close();
         return IDD;
@@ -32,13 +32,13 @@ int MedPatient::look4() {
 int MedPatient::AddNewData(MedPatient& pat, const char* filePat) {
     pat.look4();
     try {
-        
+
         std::fstream fPat;
         fPat.open(filePat);
         if (fPat.is_open()) throw "ErrorE";
         std::string bar;
         fPat>>bar;
-        
+
 
         fPat.close();
     }

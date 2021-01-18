@@ -3,11 +3,10 @@
 class MedChamber : protected Med
 {
 private:
-	int taked_cham;	//количество занятых в палате
-	int* list_patient_id; //список id пациентов в палате
+	int taked_cham;	//РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РЅСЏС‚С‹С… РјРµСЃС‚ РІ РїР°Р»Р°С‚Рµ
+	int* list_patient_id; //СЃРїРёСЃРѕРє id РїР°С†РёРµРЅС‚РѕРІ РІ РїР°Р»Р°С‚Рµ (РјРѕР¶РЅРѕ Рё РЅРµ РїРёСЃР°С‚СЊ, РёСЃРєР°С‚СЊ РёРЅС„Сѓ РІ MedHistory)
 
 public:
 	MedChamber();
 	~MedChamber();
 };
-

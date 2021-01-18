@@ -2,13 +2,13 @@
 #include <string>
 #include <fstream>
 
-const char* filePatient = "filePatient.txt"; //файл пациентов : IDpat, fio , bday, tel, tel_res, #_strahovki
-const char* fileDoctor = "fileDoctor.txt"; //файл доктора : IDdoc, fio , bday, tel(а этот внутренний, tel_res(например сотовый), #_strahovki(пусть будет:)
-const char* fileHistory = "fileHistory.txt"; //основной файл : IDpat, status(0-dead,1-лечиться,2-выписан),IDcham(номер палаты) , IDdoc, data priema, data vipiski, string History в текстовом виде
-const char* fileChamber = "fileChamber.txt"; //файл палаты (1 строка - общее количество палат (предположим все палаты - по 4 места),
-											 //перед записью нового пациента тест на оставшееся количество мест в больнице и в палате начиная с 1, IDcham, list IDpat(список пациентов)
+const char* filePatient = "filePatient.txt"; //С„Р°Р№Р» РїР°С†РёРµРЅС‚РѕРІ : IDpat, fio , bday, tel(РїР°С†РёРµРЅС‚Р°), tel_res(СЂРѕРґСЃС‚РІРµРЅРЅРёРєРѕРІ), #_strahovki
+const char* fileDoctor = "fileDoctor.txt"; //С„Р°Р№Р» РІСЂР°С‡РµР№ : IDdoc, fio , bday, tel(Р° СЌС‚РѕС‚ РІРЅСѓС‚СЂ), tel_res(РЅР°РїСЂРёРјРµСЂ СЃРѕС‚), #_strahovki(РїСѓСЃС‚СЊ Р±СѓРґРµС‚:)
+const char* fileHistory = "fileHistory.txt"; //С„Р°Р№Р» РёСЃС‚РѕСЂРёР№ (РѕСЃРЅРѕРІРЅРѕР№) : IDpat, status(0-dead,1-РЅР° Р»РµС‡РµРЅРёРё,2-РІС‹РїРёСЃР°РЅ),IDcham(РЅРѕРјРµСЂ РїР°Р»Р°С‚С‹) , IDdoc, data priema, data vipiski, string History РІ С‚РµРєСЃС‚РѕРІРѕРј РІРёРґРµ
+const char* fileChamber = "fileChamber.txt"; //С„Р°Р№Р» РїР°Р»Р°С‚ (1 1 СЃС‚СЂРѕРєР° - РѕР±С‰ РєРѕР»-РІРѕ РїР°Р»Р°С‚ (РїСЂРµРґРїРѕР»РѕР¶РёРј РІСЃРµ РїР°Р»Р°С‚С‹ РїРѕ 4 РјРµСЃС‚Р°),
+											 //РїРµСЂРµРґ Р·Р°РїРёСЃСЊСЋ РЅРѕРІРѕРіРѕ РїР°С†РёРµРЅС‚Р° С‚РµСЃС‚ РЅР° РѕСЃС‚Р°РІС€РµРµСЃСЏ РєРѕР»РёС‡РµСЃС‚РІРѕ РјРµСЃС‚ РІ Р±РѕР»СЊРЅРёС†Рµ Рё РІ РїР°Р»Р°С‚Рµ РЅР°С‡РёРЅР°СЏ СЃ  1, IDcham, list IDpat(СЃРїРёСЃРѕРє ID_РїР°С†РёРµРЅС‚РѕРІ РІ РїР°Р»Р°С‚Рµ)
 
-struct data {	//для упрощения все месяцы по 30 дней , или по 2^32 , как пойдет :D
+struct data {	//РґР»СЏ СѓРїСЂРѕС‰РµРЅРёСЏ , 12 РјРµСЃСЏС†РµРІ РїРѕ 30 РґРЅРµР№ + - ~
 	int Day;
 	int Month;
 	int Year;
@@ -23,4 +23,3 @@ class Med	{
 		virtual void ShowData() = 0;
 		virtual void PrintData() = 0;
 };
-
