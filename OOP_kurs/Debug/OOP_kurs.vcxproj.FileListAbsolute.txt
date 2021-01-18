@@ -1,0 +1,2 @@
+X:\УЧЕБА\ООП Чернышев\Курсач\Base\OOP_kurs\Debug\OOP_kurs.exe
+X:\УЧЕБА\ООП Чернышев\Курсач\Base\OOP_kurs\Debug\OOP_kurs.pdb
