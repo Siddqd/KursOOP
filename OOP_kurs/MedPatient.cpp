@@ -25,12 +25,19 @@ int MedPatient::look4(MedPatient &mp) { //fio2 поиск по фио и пол�
         fPat.open(filePatient);
         if (fPat.is_open()) throw "Error_OpenFile";
         std::string bar;
+				std::string foo;
         fPat >> bar;                    // считываем первое значение из файла - это общее кол-во пациентов
+				int check=0;										//если находим соотв фамилии в строке, меняем чек
 
 				while (!fPat.eof()) {
 					fPat.getline(bar);
-					bar.find(mp.fio)
-				}
+					int i_fio = bar.find(mp.fio);	//начало fio
+					if(bar.find(mp.fio)) {					//если не = 0, значит фамилия найдена
+							foo=itoa(mp.bday.day)+' '+itoa(mp.bday.month)+' '+itoa(mp.bday.year);		//преобразуем др в текст
+							if(bar.find(foo))					  //доп проверка по дате рождения
+								return std:stoi(bar.substr(0,i_fio-2));
+					}
+			  }
 
         fPat.close();
         return IDD;
