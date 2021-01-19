@@ -1,9 +1,9 @@
 #pragma once
 #include "Med.h"
-class MedHistory : protected Med
+class MedRec : public Med
 {
 private:
-	
+
 	int patient_ID;
 	Data data_in;
 	Data data_out;
@@ -11,4 +11,3 @@ private:
 	std::string story;
 
 };
-

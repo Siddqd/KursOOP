@@ -1,8 +1,15 @@
 #include "MedPatient.h"
 
-MedPatient::MedPatient() {}
+MedPatient::MedPatient() {
+	this->ID = 0;			//конструктор пациента
+	this->fio = NULL;
+	this->bday = {0,0,0};
+	this->tel = tell;
+	this->res_tel = res_tell;
+	this->polis = poliss;
+}
 MedPatient::MedPatient(int IDD, std::string fioo, data bdayy, int tell, int res_tell, int64_t poliss) {
-	this->ID = IDD;
+	this->ID = IDD;			//конструктор пациента
 	this->fio = fioo;
 	this->bday = bdayy;
 	this->tel = tell;
@@ -10,9 +17,9 @@ MedPatient::MedPatient(int IDD, std::string fioo, data bdayy, int tell, int res_
 	this->polis = poliss;
 }
 
-int MedPatient::look4() {
-    int IDD = -1;
-    try {
+int MedPatient::look4(MedPatient &mp) { //fio2 поиск по фио и полису, предварительно создаем объект пациент
+    int IDD = -1;										// , куда записываем фио и полис, передаем по ссылке
+    try {														//и сравниваем со значениями в файле пациентов
 
         std::fstream fPat;
         fPat.open(filePatient);
@@ -20,11 +27,15 @@ int MedPatient::look4() {
         std::string bar;
         fPat >> bar;                    // считываем первое значение из файла - это общее кол-во пациентов
 
+				while (!fPat.eof()) {
+					fPat.getline(bar);
+					bar.find(mp.fio)
+				}
 
         fPat.close();
         return IDD;
     }
-    catch (const char* err[20]) {
+    catch (char* err) {
         std::count << err << '\n';
     }
 }

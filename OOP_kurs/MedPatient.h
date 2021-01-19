@@ -1,15 +1,16 @@
 #pragma once
-#include "People.h"
+#include "MedHuman.h"
 class MedPatient :
-    protected People
+    public People
 {
 private:
     int status;			//0 - умер, 1 - на лечении, 2 - выписан (-1 нет в базе данных)
-    int chamber_ID;
-    int history_ID;
-    int doctor_ID;
+    int room_ID;
+    int rec_ID;
+    int doc_ID;
 
 public:
+
     MedPatient();
     look4();
     MedPatient(int IDD, std::string fioo, data bdayy,
