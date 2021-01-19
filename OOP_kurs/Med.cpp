@@ -1,1 +1,2 @@
 #include "Med.h"
+{}
