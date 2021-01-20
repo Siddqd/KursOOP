@@ -19,6 +19,7 @@ struct data {	//для упрощения , 12 месяцев по 30 дней +
 	int month;
 	int year;
 };
+
 class Med	{
 	protected:
 		int total;

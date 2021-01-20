@@ -12,9 +12,9 @@ private:
 public:
 
     MedPatient();
-    std::string look4();
+    std::string look4(const char* filePat);
     MedPatient(int IDD, std::string fioo, data bdayy,
                   int tell, int res_tell, int64_t poliss);//нужно вернуть IDpatient, вызов записи из MedHistory
-    int AddNewData(MedPatient& pat, const char* filePat);
+    int AddNewData(const char* filePat);
 
 };

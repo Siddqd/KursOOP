@@ -20,12 +20,12 @@ MedPatient::MedPatient(std::string IDD, std::string fioo, data bdayy, int tell, 
 	}
 }
 
-std::string MedPatient::look4() { //fio2 поиск по фио и ДР, предварительно создаем объект пациент
+std::string MedPatient::look4(const char* filePat) { //fio2 поиск по фио и ДР, предварительно создаем объект пациент
     std::string IDD = "-1";										// , куда записываем фио и полис, передаем по ссылке
     try {									        					//и сравниваем со значениями в файле пациентов
 
         std::fstream fPat;
-        fPat.open(filePatient);
+        fPat.open(filePat);
         if (fPat.is_open()) throw "Error_OpenFile";
 				if (fPat.eof()) throw "Error_filePatient_is_EMPTY";
         std::string bar;
