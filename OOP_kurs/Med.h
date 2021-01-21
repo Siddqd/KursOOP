@@ -22,12 +22,12 @@ struct data {	//для упрощения , 12 месяцев по 30 дней +
 
 class Med	{
 	protected:
-		int total;
-		int ID;
+		int sum;
+		int id;
 	public:
-		virtual void AddNewData() = 0;
-		virtual void DeleteData() = 0;
-		virtual void RewriteData() = 0;
-		virtual void ShowData() = 0;
-		virtual void PrintData() = 0;
+		virtual void AddNewData(const char*) = 0;
+		virtual void DeleteData(const char*) = 0;
+		virtual void RewriteData(const char*) = 0;
+		virtual void ShowDataScr(const char*) = 0;
+		virtual void PrintDataFile(const char*) = 0;
 };

@@ -20,8 +20,9 @@ MedPatient::MedPatient(std::string IDD, std::string fioo, data bdayy, int tell, 
 	}
 }
 
-std::string MedPatient::look4(const char* filePat) { //fio2 поиск по фио и ДР, предварительно создаем объект пациент
-    std::string IDD = "-1";										// , куда записываем фио и полис, передаем по ссылке
+		void MedPatient::look4(const char* filePat) { //fio2 поиск по фио и ДР, предварительно создаем объект пациент
+    int iddp = -1;										// , куда записываем фио и полис, передаем по ссылке
+		int foo;
     try {									        					//и сравниваем со значениями в файле пациентов
 
         std::fstream fPat;
@@ -30,22 +31,41 @@ std::string MedPatient::look4(const char* filePat) { //fio2 поиск по фи
 				if (fPat.eof()) throw "Error_filePatient_is_EMPTY";
         std::string bar;
 				std::string foo;
-        fPat.getline(bar);                    // считываем первую строку - общее кол-во пациентов и номер крайнего пациента
+
+				//fPat.getline(bar);                    // считываем первую строку - общее кол-во пациентов и номер крайнего пациента
 																						//просто для пролистывания
 				//int check=0;										//если находим соотв фамилии в строке, меняем чек
 
 				while (!fPat.eof()) {
-					fPat.getline(bar);						//считываем строку с записью ID FIO BDAY TEL TEL_RES POLIS
-					int i_fio = bar.find(mp.fio);	//начало fio
-					if(bar.find(fio)) {					//если не = 0, значит фамилия найдена
-							foo=std::to_string(mp.bday.day)+' '+std::to_string(mp.bday.month)+' '+std::to_string(mp.bday.year);		//преобразуем др в строку
-							if(bar.find(foo))	{				  //доп проверка по дате рождения, если не 0, значит нашли
-									fPat.close();
-									return bar.substr(0,i_fio-2);
-							}
-					}
-			  }
+					fPat>>bar;
+					if(bar=="IDP") {						//проверяем сигнатуру IDP
+							fPat>>idpp;							//считали ID текущего пациента
+							fPat>>bar;						//считываем по идее FIO
 
+							if(bar=="FIO") {
+									bar=getline(fPat);	//считали фамилию , но с пробелом в начале
+							if(" "+fio==bar) {					//если == , значит фамилия найдена
+								fPat>>bar;					//считываем сигнатуру ДР
+								if (bar=="BDAY") {	//если да,
+									fpat>>foo;			//считываем число ДР
+									if (foo==bday.day) {	//сравниваем с заданым
+										fpat>>foo;			//считываем месяц
+										if (foo==bday.month) {	//сравниваем с заданым
+											fpat>>foo;			//считываем год
+												if (foo==bday.year) {	//сравниваем с заданым
+
+
+
+													return
+									}
+								}
+								if(bar.find(foo))	{				  //доп проверка по дате рождения, если не 0, значит нашли
+										fPat.close();
+										return idpp;
+									}
+								}
+			  	}
+				}
     }
     catch (char* err) {
         std::cout << err << '\n';

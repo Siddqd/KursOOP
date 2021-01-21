@@ -18,49 +18,63 @@ void rabbit() {
 }
 void mainMenu() {
   std::cout<<" Main menU  "<<'\n';
-  std::cout<<" Select menu item (enter its num) : ";
 
-  std::cout<<" 1) Searching patient/med.card by fio and bday >> ";
+  std::cout<<" 1) View info patient using fio & bday >> \n";
 
-  std::cout<<" 2) View list of free Med_rooms(chambers) >> ";
+  std::cout<<" 2) View info med.card using Med_Card_ID \n>> ";
+
+  std::cout<<" 3) View list of free Med_rooms(chambers) \n>> ";
                                                     //сначала добавляем пациента, потом мед карту
-  std::cout<<" 3) Add new med.card/patient >> ";    //если уже существует, изменяем данные(номер палаты, лечящего врача
+  std::cout<<" 4) Add new med.card/patient \n>> ";    //если уже существует, изменяем данные(номер палаты, лечящего врача
                                                     //, дописываем историю болезни)
-  std::cout<<" 4) Discharge the patient >> ";       //выписка пациента - освобождение палаты, смена статуса
+  std::cout<<" 5) Change the patient info(status or add new recs) \n>> ";       //выписка пациента - освобождение палаты, смена статуса
 
-  std::cout<<" 5) Change doc info >> ";
+  std::cout<<" 6) Change Doc info >> \n";
 
-  std::cout<<" 6) Follow for the white rabbit ... ";
+  std::cout<<" 0) Follow for the white rabbit ... \n";
 };
 
-void select() {
+void selectItem() {
   cout<<"Enter the num of menu_item >>> "
   char tmp;
-  std::cin>>tmp;
-  switch(tmp) {
-  case '1' :
-    MedPatient.look4();
-    break;
-  case '2' :
+  while (tmp!='0'){
+    std::cin>>tmp;
+    switch(tmp) {
+      case '1' :
+        system("cls");
+        MedPatient medP;
+        medP.ShowDataScr(filePatient);
+        break;
 
-    break;
-  case '3' :
+      case '2' :
+        system("cls");
+        break;
 
-    break;
-  case '4' :
+      case '3' :
 
-    break;
-  case '5' :
+        break;
 
-    break;
-  case '6' :
-    rabbit();
-    break;
-    return;
-  default:
-    std::cout<<"Oops! Press num baby one more time >> from 1 to 6 >> ";
-    system("cls");
-    mainMenu();
-    select();
+      case '4' :
 
+        break;
+
+      case '5' :
+
+        break;
+
+      case '5' :
+
+        break;
+
+      case '0' :
+        rabbit();
+        break;
+        return;
+      default:
+        std::cout<<"Oops! Press num baby one more time >> from 1 to 6 or 0 >> ";
+        system("cls");
+        mainMenu();
+        select();
+  }
+  return;
 }

@@ -3,15 +3,17 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "Med.h"
+#include "Methods.h"
 
 using namespace std;
 
 int main() {
-  std::cout << "<<<<<<<<<<  Главное меню >>>>>>>>> " << '\n';
-  std::std::cout << "1) Поиск карты пациента " << '\n';
-  std::std::cout << "2) Изменение мед.карты(данных) пациента  " << '\n';
-  std::std::cout << "3) Добавление нового пациента " << '\n';
-  std::std::cout << "4) Удаление мед.карты(данных) пациента  " << '\n';
+  mainMenu();
+  selectItem();
+
+
+  return 0;
 
 }
 
