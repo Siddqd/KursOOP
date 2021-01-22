@@ -15,17 +15,17 @@ void MedHuman::setBday(data bdayy) {
   bday=bdayy;
 }
 
-int MedHuman::getTel() {
+int64_t MedHuman::getTel() {
   return tel;
 }
-void MedHuman::setTel(int tell) {
+void MedHuman::setTel(int64_t tell) {
   tel=tell;
 }
 
-int MedHuman::getRes_tel() {
+int64_t MedHuman::getRes_tel() {
   return res_tel;
 }
-void MedHuman::setRes_tel(int res_tell) {
+void MedHuman::setRes_tel(int64_t res_tell) {
   res_tel=res_tell;
 }
 

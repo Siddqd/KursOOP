@@ -7,20 +7,20 @@ class MedHuman : public Med
 protected:
 	std::string fio;
 	data bday;
-	char tel[10];
-	char res_tel[10];
-	char polis[12];
+	int64_t tel;
+	int64_t res_tel;
+	int64_t polis;
 
 public:
 	std::string getFio();
 	void setFio(std::string fioo);
 	data getData();
 	void setData(data bdayy);
-	char* getTel();
-	void setTel(char* tell);
-	char* getRes_tel();
-	void setRes_tel(char* res_tell);
-	char* getPolis();
-	void setPolis(char* poliss);
+	int64_t getTel();
+	void setTel(int64_t tell);
+	int64_t getRes_tel();
+	void setRes_tel(int64_t res_tell);
+	int64_t getPolis();
+	void setPolis(int64_t poliss);
 
 };

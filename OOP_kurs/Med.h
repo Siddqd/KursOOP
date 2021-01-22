@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <cstdio>
 
 
 const int MaxRooms = 25;

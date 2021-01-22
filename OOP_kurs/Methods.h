@@ -1,4 +1,8 @@
 #pragma once
+#include "MedPatient.h"
+#include "MedRec.h"
+#include "MedDoc.h"
+#include "MedRoom.h"
 
 void rabbit() {
     system("cls");
@@ -19,7 +23,7 @@ void rabbit() {
 void mainMenu() {
   std::cout<<" Main menU  "<<'\n';
 
-  std::cout<<" 1) View info patient using fio & bday >> \n";
+  std::cout<<" 1) View info patient using fio & bday or ID >> \n";
 
   std::cout<<" 2) View info med.card using Med_Card_ID \n>> ";
 
@@ -34,15 +38,25 @@ void mainMenu() {
   std::cout<<" 0) Follow for the white rabbit ... \n";
 };
 
-void selectItem() {
-  cout<<"Enter the num of menu_item >>> "
-  char tmp;
-  while (tmp!='0'){
-    std::cin>>tmp;
+void selectItem(char tmp) {
+  MedPatient medP;
+
     switch(tmp) {
       case '1' :
         system("cls");
-        MedPatient medP;
+
+        std::cout<< "Введите ID для поиска инфо пациента >> ";
+        std::cout<<"(введите ID = 0 для поиска по ФИО и дате рождения) ";
+        std::cin>> medP.idp;
+        if (medP.ipd==0) {
+          std::cout<<"Введите ФИО (через пробел latinicei) : ";
+  				getline(cin,medP.fio);
+  				std::cout<<"Введите день, месяц и год рождения(через пробел) : " ;
+          std::cout<<"(возможен поиск только по ФИО , для этого введите день '0' )";
+  				std::cin>>medP.bday.day>>medP.bday.month>>medP.bday.year;
+        }
+
+
         medP.ShowDataScr(filePatient);
         break;
 

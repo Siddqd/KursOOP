@@ -9,12 +9,15 @@
 using namespace std;
 
 int main() {
+  char tmpp;
   mainMenu();
-  selectItem();
-
-
+  cout<<"Enter the num of menu_item >>> "
+  while (tmp!='0'){
+    std::cin>>tmpp;
+    selectItem(tmpp);
+    system("clr");
+  }
   return 0;
-
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
