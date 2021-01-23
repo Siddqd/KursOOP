@@ -228,35 +228,40 @@ int MedPatient::ShowDataScr(const char* filePat) { //fio2 поиск по фио
 	}
 			
 	fPat.close();
-	std::cout << "You push key .. 4 or push key ... \n patient with entered data is not detected";
+	std::cout << "Yo push key .. 4 a push key ... \n patient with entered data is not detected";
 	return -1; //если поиск прошел не удачно
 }
 
 int MedPatient::AddNewData(const char* filePat) {
 	std::string bar;
 	int idpp = 0, sum_pat = 0;
+	std::fstream fPat(filePat,std::ios::out);
+	fPat.close();
+	fPat.open(filePat,std::ios::in);
 	
-	std::fstream fPat;	
-	fPat.open(filePat, std::ios::in | std::ios::out);
+	//fPat.open(filePat, std::ios::in );	//открываем файл для чтения
 	
 	try {
-		if (fPat.is_open()) throw "Error_OpenFile";	//проверка открытия файла
-		
+			//проверка открытия файла
+		if (fPat.peek() == EOF) throw 0;		//смотрим первый символ, если конец файла, то пусто
 		fPat >> sum_pat;						//считали текущее общее количество пациентов
 		if (sum_pat >= MaxPatient) throw "sorrY_Clinic_Overflow"; //если больше равно макс - клиника переполнена
-		++sum_pat;   //если не выкинуло, то места есть, прибавляем +1
 		fPat >> idpp;					// считали последний занятый ID пациента
-		++idpp;			//записываем ID для нового пациента
-
-		fPat.seekg(0, std::ios::beg);//встаем в начало файла
-		fPat << sum_pat << idpp;	//пишем новое значения общего числа пациентов и номер нового крайнего
-		fPat.close();
-	}
-	catch (char* er) { std::cout << er;return -1; }
 		
+	}
+	catch (const char* er) { std::cout << er;return -1; }
+	catch (int e) { }	//переходим сюда если файл пуст
+		++sum_pat;      //если не выкинуло, то места есть, прибавляем +1
+		++idpp;			//записываем ID для нового-текущего пациента
+		//fPat.seekg(0, std::ios::beg);//встаем в начало файла
+		fPat.close();
+		fPat.open(filePat, std::ios::out); //открываем для файл для записи
+		fPat << sum_pat <<" "<< idpp;	//пишем новое значения общего числа пациентов и номер нового крайнего
+		fPat.close();
+	
 	//ввод данных нового пациента
 	std::cout<<"Введите ФИО (через пробел) : ";
-	std::cin>>fio;
+	std::getline(std::cin, fio);std::cout <<'\n'<< fio<<'\n';
 	std::cout<<"Введите день, месяц и год рождения(через пробел) : " ;
 	std::cin>>bday.day>>bday.month>>bday.year;
 	try {
@@ -278,12 +283,10 @@ int MedPatient::AddNewData(const char* filePat) {
 	std::cin>>doc_id;
 
 	
-				fPat.open(filePat,std::ios::app|std::ios::in);	//добавляем нового пациента в конец файла
-				fPat <<"\nIDP " << id << "\nFIO "<< fio<< "\nBDAY " <<bday.day<<bday.month<<bday.year<<
-						 "\nTEL "<<tel<<"\nRES_TEL "<<res_tel<<"\nPOLIS "<<polis<<"'\nSTATUS "<<status<<
-						 "\nROOM_ID " <<room_id<<"\nDOC_ID"<<doc_id;
-				fPat.close();
-				return 0;
-
-
+	fPat.open(filePat,std::ios::app|std::ios::in);	//добавляем нового пациента в конец файла
+	fPat <<"\nIDP " << id << "\nFIO "<< fio<< "\nBDAY " <<bday.day<<bday.month<<bday.year<<
+	"\nTEL "<<tel<<"\nRES_TEL "<<res_tel<<"\nPOLIS "<<polis<<"'\nSTATUS "<<status<<
+	"\nROOM_ID " <<room_id<<"\nDOC_ID"<<doc_id;
+	fPat.close();
+	return 0;
 }

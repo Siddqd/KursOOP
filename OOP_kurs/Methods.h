@@ -7,7 +7,7 @@
 void rabbit() {
     system("cls");
     std::string os2 = "",os1 = "";
-    for(int i=1;i<500;i++){
+    for(int i=1;i<10;i++){
         if(!(i%50)) {
             os1 =" ";
             os2 = os2 + "\n\n\n";
@@ -25,13 +25,13 @@ void mainMenu() {
 
   std::cout<<" 1) View patient info /using fio & bday or ID >> \n";
 
-  std::cout<<" 2) View med.card info /using Med_Card_ID \n>> ";
+  std::cout<<" 2) View med.card info /using Med_Card_ID >> \n";
 
-  std::cout<<" 3) View list of free Med_rooms(chambers) \n>> ";
+  std::cout<<" 3) View list of free Med_rooms(chambers) >> \n";
                                                     //сначала добавляем пациента, потом мед карту
-  std::cout<<" 4) Add new med.card/patient \n>> ";    //если уже существует, изменяем данные(номер палаты, лечящего врача
+  std::cout<<" 4) Add new med.card/patient >> \n";    //если уже существует, изменяем данные(номер палаты, лечящего врача
                                                     //, дописываем историю болезни)
-  std::cout<<" 5) Change the patient info(status or add new recs) \n>> ";       //выписка пациента - освобождение палаты, смена статуса
+  std::cout<<" 5) Change the patient info(status or add new recs) >> \n";       //выписка пациента - освобождение палаты, смена статуса
 
   std::cout<<" 6) Change Doc info >> \n";
 
@@ -89,8 +89,8 @@ void selectItem(char tmp) {
 
       case '0' :
         rabbit();
-        break;
         return;
+        break;
       default:
         std::cout<<"Oops! Press num baby one more time >> from 1 to 6 or 0 >> ";
         system("cls");
