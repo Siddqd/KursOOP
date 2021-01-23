@@ -23,12 +23,12 @@ class Med	{
 		int id;
 		
 	public:
-		int getID(const char*);
-		void setID(const char*);
+		int getID() { return id; }
+		void setID(int idd) { id = idd; }
 
-		virtual int ShowDataScr(const char*) ;
-		virtual int AddNewData(const char*);
-		virtual int DeleteData(const char*);
-		virtual int RewriteData(const char*);
-		virtual int PrintDataFile(const char*);
+		//virtual int ShowDataScr(const char*) ;
+		//virtual int AddNewData(const char*);
+		//virtual int DeleteData(const char*);
+		//virtual int RewriteData(const char*);
+		//virtual int PrintDataFile(const char*);
 };
