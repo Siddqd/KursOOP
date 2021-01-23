@@ -1,7 +1,7 @@
 #pragma once
 #include "MedHuman.h"
 class MedPatient :
-    public People
+    public MedHuman
 {
 private:
     int status;			//0 - умер, 1 - на лечении, 2 - выписан (-1 нет в базе данных)
@@ -10,6 +10,12 @@ private:
     int doc_id;
 
 public:
+
+    MedPatient();
+    MedPatient(int);
+    MedPatient(std::string, Data);
+    MedPatient(int idpp, std::string fioo, Data bdayy,
+        int tell, int res_tell, int64_t poliss, int status, int room_id, int doc_id);
     int getStatus();
     void setStatus(int statuss);
 
@@ -22,7 +28,9 @@ public:
     MedPatient();
     int look4(const char* filePat);
 
-    MedPatient(int idd, std::string fioo, data bdayy,
+    int ShowDataScr(const char* filePat);
+
+    MedPatient(int idd, std::string fioo, Data bdayy,
                   int64_t tell, int64_t res_tell, int64_t poliss);//нужно вернуть IDpatient, вызов записи из MedHistory
 
     int AddNewData(const char* filePat); //возвращает -1 при fail

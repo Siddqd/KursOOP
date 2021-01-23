@@ -2,8 +2,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <sstream>
-#include <cstdio>
+//#include <sstream>
+//#include <cstdio>
 
 
 const int MaxRooms = 25;
@@ -15,7 +15,7 @@ const char* fileHistory = "fileHistory.txt"; //файл историй (осно
 const char* fileChamber = "fileChamber.txt"; //файл палат (1 1 строка - общ кол-во палат (предположим все палаты по 4 места),
 											 //перед записью нового пациента тест на оставшееся количество мест в больнице и в палате начиная с  1, IDcham, list IDpat(список ID_пациентов в палате)
 
-struct data {	//для упрощения , 12 месяцев по 30 дней + - ~
+struct Data {	//для упрощения , 12 месяцев по 30 дней + - ~
 	int day;
 	int month;
 	int year;
@@ -26,9 +26,9 @@ class Med	{
 		int sum;
 		int id;
 	public:
-		virtual void AddNewData(const char*) = 0;
-		virtual void DeleteData(const char*) = 0;
-		virtual void RewriteData(const char*) = 0;
-		virtual void ShowDataScr(const char*) = 0;
-		virtual void PrintDataFile(const char*) = 0;
+		virtual int AddNewData(const char*) = 0;
+		virtual int DeleteData(const char*) = 0;
+		virtual int RewriteData(const char*) = 0;
+		int ShowDataScr(const char*);
+		virtual int PrintDataFile(const char*) = 0;
 };

@@ -1,6 +1,6 @@
 #pragma once
 #include "MedPatient.h"
-#include "MedRec.h"
+#include "MedCard.h"
 #include "MedDoc.h"
 #include "MedRoom.h"
 
@@ -23,9 +23,9 @@ void rabbit() {
 void mainMenu() {
   std::cout<<" Main menU  "<<'\n';
 
-  std::cout<<" 1) View info patient using fio & bday or ID >> \n";
+  std::cout<<" 1) View patient info /using fio & bday or ID >> \n";
 
-  std::cout<<" 2) View info med.card using Med_Card_ID \n>> ";
+  std::cout<<" 2) View med.card info /using Med_Card_ID \n>> ";
 
   std::cout<<" 3) View list of free Med_rooms(chambers) \n>> ";
                                                     //сначала добавляем пациента, потом мед карту

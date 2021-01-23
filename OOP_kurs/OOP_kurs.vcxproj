@@ -140,21 +140,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Med.cpp" />
-    <ClCompile Include="MedChamber.cpp" />
-    <ClCompile Include="MedDoctor.cpp" />
-    <ClCompile Include="MedHistory.cpp" />
+    <ClCompile Include="MedCard.cpp" />
+    <ClCompile Include="MedDoc.cpp" />
+    <ClCompile Include="MedHuman.cpp" />
     <ClCompile Include="MedPatient.cpp" />
+    <ClCompile Include="MedRoom.cpp" />
     <ClCompile Include="OOP_kurs.cpp" />
-    <ClCompile Include="People.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Med.h" />
-    <ClInclude Include="MedChamber.h" />
-    <ClInclude Include="MedDoctor.h" />
-    <ClInclude Include="MedHistory.h" />
+    <ClInclude Include="MedCard.h" />
+    <ClInclude Include="MedDoc.h" />
+    <ClInclude Include="MedHuman.h" />
     <ClInclude Include="MedPatient.h" />
+    <ClInclude Include="MedRoom.h" />
     <ClInclude Include="Methods.h" />
-    <ClInclude Include="People.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

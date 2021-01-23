@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "Med.h"
+#include "MedPatient.h"
 #include "Methods.h"
 
 using namespace std;
@@ -11,8 +11,8 @@ using namespace std;
 int main() {
   char tmpp;
   mainMenu();
-  cout<<"Enter the num of menu_item >>> "
-  while (tmp!='0'){
+  cout << "Enter the num of menu_item >>> ";
+  while (tmpp!='0'){
     std::cin>>tmpp;
     selectItem(tmpp);
     system("clr");

@@ -2,11 +2,11 @@
 #include "Med.h";
 
 
-class MedHuman : public Med
+class MedHuman : virtual public Med
 {
 protected:
 	std::string fio;
-	data bday;
+	Data bday;
 	int64_t tel;
 	int64_t res_tel;
 	int64_t polis;
@@ -14,8 +14,8 @@ protected:
 public:
 	std::string getFio();
 	void setFio(std::string fioo);
-	data getData();
-	void setData(data bdayy);
+	Data getData();
+	void setData(Data bdayy);
 	int64_t getTel();
 	void setTel(int64_t tell);
 	int64_t getRes_tel();

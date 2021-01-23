@@ -1,8 +1,9 @@
 #include "MedPatient.h"
 
+
 MedPatient::MedPatient() {
-	this->idp = 0;			//конструктор пациента пустой
-	this->fio = NULL;
+	this->id = 0;			//конструктор пациента пустой
+	this->fio = "";
 	this->bday.day = 0;
 	this->bday.month = 0;
 	this->bday.year = 0;
@@ -15,8 +16,8 @@ MedPatient::MedPatient() {
 }
 
 MedPatient::MedPatient(int idpp) {
-	this->idp = idpp;			//конструктор пациента ID
-	this->fio = NULL;
+	this->id = idpp;			//конструктор пациента ID
+	this->fio = "";
 	this->bday.day = 0;
 	this->bday.month = 0;
 	this->bday.year = 0;
@@ -28,8 +29,8 @@ MedPatient::MedPatient(int idpp) {
 	this->doc_id = 0;
 }
 
-MedPatient::MedPatient(std::string fioo,data bdayy) {
-	this->idp = 0;			//конструктор пациента фио и ДР
+MedPatient::MedPatient(std::string fioo,Data bdayy) {
+	this->id = 0;			//конструктор пациента фио и ДР
 	this->fio = fioo;
 	this->bday = bdayy;
 	this->tel = 0;
@@ -40,10 +41,10 @@ MedPatient::MedPatient(std::string fioo,data bdayy) {
 	this->doc_id = 0;
 }
 
-MedPatient::MedPatient(int idpp, std::string fioo, data bdayy,
+MedPatient::MedPatient(int idpp, std::string fioo, Data bdayy,
 				int tell, int res_tell, int64_t poliss, int status, int room_id, int doc_id) {
 
-		this->idp = idpp;			//конструктор пациента полный
+		this->id = idpp;			//конструктор пациента полный
 		this->fio = fioo;
 		this->bday = bdayy;
 		this->tel = tell;
@@ -67,110 +68,110 @@ MedPatient::MedPatient(int idpp, std::string fioo, data bdayy,
 }*/
 
 int MedPatient::look4(const char* filePat) { //fio2 поиск по фио и ДР, предварительно создаем объект пациент
-    int iddp = -1;										// , куда записываем фио и полис
-		int foo32;												//итоговый результат запись всех найденных данных в объект
-		int64_t foo64;
-		data bdres;
-    try {									        					//и сравниваем со значениями в файле пациентов
+    int iddp = -1;							// , куда записываем фио и полис
+	int foo32;							   //итоговый результат запись всех найденных данных в объект
+	int64_t foo64;			 			  //и сравниваем со значениями в файле пациентов
+	Data bdres;
+	std::string bar;
+	std::string foo;
 
-        std::fstream fPat;
-        fPat.open(filePat);
+    try {									        					
+		std::fstream fPat(filePat,std::ios::in);
+        
         if (fPat.is_open()) throw "Error_OpenFile";
-				if (fPat.eof()) throw "Error_filePatient_is_EMPTY";
-		}	catch(const char* er) {std::cout<< err; fPat.close(); return -1;}
+		if (fPat.eof()) throw "Error_filePatient_is_EMPTY";
 
-        std::string bar;
-				std::string foo;
+	}	catch (const char* err) { std::cout << err; }//{std::cout<< err; fPat.close(); return -1;}
 
-				fPat>>bar;                    // считываем первую строку - общее кол-во пациентов
-				fPat>>bar;										// 2ю строку - номер крайнего пациента
-																			//просто для пролистывания,хотя можно и вывести
-				while (!fPat.eof()) {
-					fPat>>bar;										//считываем сигнатуру IDP
-					if(bar=="IDP") {						//проверяем сигнатуру IDP //варик ? for(;bar!="IDP";	fPat>>bar)
-						fPat>>idpp;							//считали ID текущего пациента
-						if (idp!=idpp){ //нужный пациент(выполнен поиск по ID) - пропускаем поиск по фио
-							fPat>>bar;						//считываем по идее FIO
+        
+		fPat>>bar;                    // считываем первую строку - общее кол-во пациентов
+		fPat>>bar;					 // 2ю строку - номер крайнего пациента
+									//просто для пролистывания,хотя можно и вывести
+		while (!fPat.eof()) {
+			fPat>>bar;							//считываем сигнатуру IDP
+			if (bar != "IDP") return -1;		//проверяем сигнатуру IDP //варик ? for(;bar!="IDP";	fPat>>bar)
+			fPat >> idpp;						//считали ID текущего пациента
+			if (id!=idpp){						//нужный пациент(выполнен поиск по ID) - пропускаем поиск по фио
+					fPat>>bar;					//считываем по идее FIO
+					if (bar != "FIO") return -1;;
+					bar=fPat.getline();		//считали фамилию , но с пробелом в начале
+					if(" "+fio!=bar) continue; 		//если == , значит фамилия найдена,если != цикл начинаем сначала
 
-							if(bar!="FIO") continue;
-							bar=getline(fPat);							//считали фамилию , но с пробелом в начале
-							if(" "+fio!=bar) continue; 		//если == , значит фамилия найдена
+					fPat >> bar;											//считываем сигнатуру ДР
+					if (bar != "BDAY") return -1;						   //если да, если нет ошибка :[]
+					fPat >> bdres.day >> bdres.month >> bdres.year;		  //считываем ДР
 
-							try {
-								fPat >> bar;										//считываем сигнатуру ДР
-								if (bar!="BDAY") return -1;		//если да, если нет ошибка :[]
-								fPat >> bdres.day >> bdres.month >> bdres.year;			//считываем ДР
-
-								if (bdres.day!=0)
-									if (bdres.day!=bday.day || bdres.month!=bday.month || bd!=bday.year) continue;
-											//если др не задано = 0, то пропускаем сравнение и выводим всех с такой ФИО
-										//сравниваем ДР с заданым, если нет идем к след фамилии
-									//если ок полное совпадение фио и др
-								//сразу поадаем сюда если bday.day==0 , то есть не задана ДР/ ищет первое совпадение по фио
-							//можно сделать вывод текущих данных с запросом дальнейшего поиска совпадений по фио
-						//перезаписываем оставшиеся поля класса
-						} else {//сюда попадаем если удачно прошел поиск по ID
-							fPat >> bar; if (bar=="FIO") {bar=fPat.get(); fio=getline(fPat);}
+					if (bdres.day!=0)	//сравниваем ДР с заданым, если нет идем к след фамилии
+						if (bdres.day!=bday.day || bdres.month!=bday.month || bdres.year!=bday.year) continue;
+					//если др не задано = 0, то пропускаем сравнение и выводим всех с такой ФИО
+										
+					//сразу поадаем сюда если bday.day==0 , то есть не задана ДР/ ищет первое совпадение по фио
+					//перезаписываем оставшиеся поля класса
+			} else {//сюда попадаем если удачно прошел поиск по ID
+						fPat >> bar; 
+						if (bar == "FIO") { bar = fPat.get(); fio = fPat.getline();} 
 							 	else throw "Oops ... shit happens :|";
-							fPat >> bar; if (bar=="BDAY") {fPat>>bday.day; fPat>>bday.month; fPat>>bday.year;}
+						fPat >> bar; 
+						if (bar=="BDAY") {fPat>>bday.day; fPat>>bday.month; fPat>>bday.year;}
 							 	else throw "Oops ... shit happens :|";
-							}		//сюда уходим после совпадения по фио и дате ДР
-						idp=idpp;
-						fPat >> bar; if (bar=="TEL") fPat>>tel; else throw "Oops ... shit happens :|";
-						fPat >> bar; if (bar=="RES_TEL") fPat>>res_tel; else throw "Oops ... shit happens :|"
-						fPat >> bar; if (bar=="POLIS") fPat>>polis; else throw "Oops ... shit happens :|"
-						fPat >> bar; if (bar=="STATUS") fPat>>status; else throw "Oops ... shit happens :|"
-						fPat >> bar; if (bar=="ROOM_ID") fPat>>room_id; else throw "Oops ... shit happens :|"
-						fPat >> bar; if (bar=="DOC_ID") fPat>>status; else throw "Oops ... shit happens :|"
-						//fPat >> foo32; if (foo=="STATUS") fPat>>status; else throw "Oops ... shit happens :|"
-						//возможно вывод данных убрать ? оставить только возврат ID
-						} catch(const char* er) {std::cout<<er;fPat.close();return -1};
-						if (bday.day==0) std::cout<<"							Patient  ID : "<<idp<<'\n';
-						std::cout<<"					 			Full name : "<<fio<<'\n';
-						std::cout<<"				    Birthday date : "<<bday<<'\n';
-						if (bday.day==0) continue;
-						std::cout<<"		 Patient phone number : "<<tel<<'\n';
-						std::cout<<"Phone number of relatives : "<<res_tel<<'\n';
-						std::cout<<"								Polis num : "<<polis<<'\n';
-						if (status==0) std::cout<<"Sry, patient is game over ..";
-						if (status==2) std::cout<<"Patient was discharged out ..";
-						if (status==1) std::cout<<"Patient now in chamber num : " <<room_id<<'\n';
+			}		//сюда уходим после совпадения по фио и дате ДР
+			id=idpp;
+			try {
+				fPat >> bar; if (bar=="TEL") fPat>>tel; else throw "Oops ... shit happens :|";
+				fPat >> bar; if (bar == "RES_TEL") fPat >> res_tel; else throw "Oops ... shit happens :|";
+				fPat >> bar; if (bar == "POLIS") fPat >> polis; else throw "Oops ... shit happens :|";
+				fPat >> bar; if (bar == "STATUS") fPat >> status; else throw "Oops ... shit happens :|";
+				fPat >> bar; if (bar == "ROOM_ID") fPat >> room_id; else throw "Oops ... shit happens :|";
+				fPat >> bar; if (bar == "DOC_ID") fPat >> status; else throw "Oops ... shit happens :|";
+				//fPat >> foo32; if (foo=="STATUS") fPat>>status; else throw "Oops ... shit happens :|"
+				//возможно вывод данных убрать ? оставить только возврат ID
+			} catch (const char* er) { std::cout << er;fPat.close();return -1; }
+			
+			std::cout<<"		   			  Patient  ID : "<<id<<'\n';
+			std::cout<<"						Full name : "<<fio<<'\n';
+			std::cout<<"				    Birthday date : "<<bday<<'\n';
+			if (bday.day==0) continue;
+			std::cout<<"		     Patient phone number : "<<tel<<'\n';
+			std::cout<<"        Phone number of relatives : "<<res_tel<<'\n';
+			std::cout<<"						Polis num : "<<polis<<'\n';
+			if (status==0) std::cout<<"Sry, patient is game over ..";
+			if (status==2) std::cout<<"Patient was discharged out ..";
+			if (status==1) std::cout<<"Patient now in chamber num : " <<room_id<<'\n';
+			if (bday.day == 0) continue;
+				
 
-
-
-								fPat.close();
-								return idp; //возвращаем # id пациента - соответсвует номеру мед карты
-					}
-				}
+			fPat.close();
+			return id; //возвращаем # id пациента - соответсвует номеру мед карты
+		}
+			
 							fPat.close();
-							std::cout<<"You push key .. 4 or push key ... patient with entered data is not detected"
+							std::cout << "You push key .. 4 or push key ... patient with entered data is not detected";
 							return -1;
-					}
-				}
-    catch (char* err) {
-        std::cout << err << '\n';
-    }
-		fPat.close();
-		return -1;
+	
+		
+    fPat.close();
+	return -1;
 }
 
 
 																										//плюс альтернативный поис по ID
-void MedPatient::ShowDataScr(const char* filePat) { //fio2 поиск по фио и ДР, предварительно создаем объект пациент
+int MedPatient::ShowDataScr(const char* filePat) { //fio2 поиск по фио и ДР, предварительно создаем объект пациент
 	int iddp = -1;										// , куда записываем фио и полис
 	int foo32;												//итоговый результат запись всех найденных данных в объект
 	int64_t foo64;
-	data bdres;
+	Data bdres;
+	std::string bar;
+	std::string foo;
+
 	try {									        					//и сравниваем со значениями в файле пациентов
 
 			std::fstream fPat;
 			fPat.open(filePat);
 			if (fPat.is_open()) throw "Error_OpenFile";
 			if (fPat.eof()) throw "Error_filePatient_is_EMPTY";
-	}	catch(const char* er) {std::cout<< err; fPat.close(); return ;}
+	}	catch(const char* er) {std::cout<< er; fPat.close(); return ;}
 
-			std::string bar;
-			std::string foo;
+			
 
 			fPat>>bar;                    // считываем первую строку - общее кол-во пациентов
 			fPat>>bar;										// 2ю строку - номер крайнего пациента
@@ -179,7 +180,7 @@ void MedPatient::ShowDataScr(const char* filePat) { //fio2 поиск по фи�
 				fPat>>bar;										//считываем сигнатуру IDP
 				if(bar=="IDP") {						//проверяем сигнатуру IDP //варик ? for(;bar!="IDP";	fPat>>bar)
 					fPat>>idpp;							//считали ID текущего пациента
-					if (idp!=idpp){ //нужный пациент(выполнен поиск по ID) - пропускаем поиск по фио
+					if (id!=idpp){ //нужный пациент(выполнен поиск по ID) - пропускаем поиск по фио
 						fPat>>bar;						//считываем по идее FIO
 
 						if(bar!="FIO") continue;
