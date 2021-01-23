@@ -6,7 +6,7 @@
 
 void rabbit() {
     system("cls");
-    string os2 = "",os1 = "";
+    std::string os2 = "",os1 = "";
     for(int i=1;i<500;i++){
         if(!(i%50)) {
             os1 =" ";
@@ -40,6 +40,9 @@ void mainMenu() {
 
 void selectItem(char tmp) {
   MedPatient medP;
+  Data bufDat;
+  int bufInt;
+  std::string bufStr;
 
     switch(tmp) {
       case '1' :
@@ -47,17 +50,21 @@ void selectItem(char tmp) {
 
         std::cout<< "Введите ID для поиска инфо пациента >> ";
         std::cout<<"(введите ID = 0 для поиска по ФИО и дате рождения) ";
-        std::cin>> medP.idp;
-        if (medP.ipd==0) {
-          std::cout<<"Введите ФИО (через пробел latinicei) : ";
-  				getline(cin,medP.fio);
-  				std::cout<<"Введите день, месяц и год рождения(через пробел) : " ;
-          std::cout<<"(возможен поиск только по ФИО , для этого введите день '0' )";
-  				std::cin>>medP.bday.day>>medP.bday.month>>medP.bday.year;
+        std::cin >> bufInt;
+        medP.setID(bufInt);
+        if (medP.getID()==0) {
+            std::cout<<"Введите ФИО (через пробел latinicei) : ";
+  			getline(std::cin,bufStr);
+            medP.setFio(bufStr);
+  			std::cout<<"Введите день, месяц и год рождения(через пробел) : " ;
+            std::cout<<"(возможен поиск только по ФИО , для этого введите день '0' )";
+            std::cin >> bufDat.day >> bufDat.month >> bufDat.year;
+            medP.setBday(bufDat);
+          
         }
 
 
-        medP.ShowDataScr(filePatient);
+        if (medP.ShowDataScr("filePatient.txt") == -1) std::cout << "ErrorrE";
         break;
 
       case '2' :
@@ -67,16 +74,16 @@ void selectItem(char tmp) {
       case '3' :
 
         break;
-
+        
       case '4' :
-
+          medP.AddNewData("filePatient.txt");
         break;
 
       case '5' :
 
         break;
 
-      case '5' :
+      case '6' :
 
         break;
 
@@ -88,7 +95,6 @@ void selectItem(char tmp) {
         std::cout<<"Oops! Press num baby one more time >> from 1 to 6 or 0 >> ";
         system("cls");
         mainMenu();
-        select();
-  }
+    }
   return;
 }

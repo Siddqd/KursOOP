@@ -3,15 +3,15 @@
 std::string MedHuman::getFio() {
     return fio;
 }
-void string MedHuman::setFio(std::string fio2) {
+void MedHuman::setFio(std::string fio2) {
     fio=fio2;
 }
 
-data MedHuman::getBday() {
+Data MedHuman::getBday() {
   return  bday;
 }
 
-void MedHuman::setBday(data bdayy) {
+void MedHuman::setBday(Data bdayy) {
   bday=bdayy;
 }
 

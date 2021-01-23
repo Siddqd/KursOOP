@@ -1,9 +1,10 @@
 #include "MedRoom.h"
 
-MedChamber::MedRoom(){
 
-}
+MedRoom::MedRoom() {
 
-MedChamber::~MedRoom() {
+};
 
-}
+MedRoom::~MedRoom() {
+
+};

@@ -1,7 +1,9 @@
 #pragma once
-#include "People.h"
+#include "MedHuman.h"
+//const char* fileDoctor = "fileDoctor.txt"; //файл врачей : IDdoc, fio , bday, tel(а этот внутр), tel_res(например сот), #_strahovki(пусть будет:)
+
 class MedDoc :
-    public People
+    public MedHuman
 {
 
 };

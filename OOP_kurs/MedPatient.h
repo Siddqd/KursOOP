@@ -1,5 +1,8 @@
 #pragma once
 #include "MedHuman.h"
+
+//char* filePatient = "filePatient.txt"; //: IDpat, fio , bday, tel(пациента), tel_res(родственников), #_strahovki
+
 class MedPatient :
     public MedHuman
 {
@@ -14,8 +17,14 @@ public:
     MedPatient();
     MedPatient(int);
     MedPatient(std::string, Data);
+    MedPatient(int idd, std::string fioo, Data bdayy,
+        int64_t tell, int64_t res_tell, int64_t poliss);//нужно вернуть IDpatient, вызов записи из MedHistory
     MedPatient(int idpp, std::string fioo, Data bdayy,
         int tell, int res_tell, int64_t poliss, int status, int room_id, int doc_id);
+    
+    int getID() { return id; }
+    void setID(int idd) { id = idd; }
+
     int getStatus();
     void setStatus(int statuss);
 
@@ -23,16 +32,19 @@ public:
     void setRoom_id(int64_t room_idd);
 
     int64_t getDoc_id();
+    
     void setDoc_id(int doc_idd);
 
-    MedPatient();
-    int look4(const char* filePat);
+    int look4(const char* );
 
-    int ShowDataScr(const char* filePat);
+    int ShowDataScr(const char* ) ;
 
-    MedPatient(int idd, std::string fioo, Data bdayy,
-                  int64_t tell, int64_t res_tell, int64_t poliss);//нужно вернуть IDpatient, вызов записи из MedHistory
+    int AddNewData(const char* ) ; //возвращает -1 при fail
 
-    int AddNewData(const char* filePat); //возвращает -1 при fail
+    //int DeleteData(const char*);
+
+    //int RewriteData(const char*);
+
+    //int PrintDataFile(const char*);
 
 };

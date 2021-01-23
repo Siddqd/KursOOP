@@ -1,9 +1,9 @@
 ﻿// OOP_kurs.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
-#include <iostream>
-#include <fstream>
-#include <string>
-#include "MedPatient.h"
+//#include <iostream>
+//#include <fstream>
+//#include <string>
+
 #include "Methods.h"
 
 using namespace std;
@@ -11,7 +11,8 @@ using namespace std;
 int main() {
   char tmpp;
   mainMenu();
-  cout << "Enter the num of menu_item >>> ";
+  std::cout << "\nEnter the num of menu_item >>> ";
+  std::cin >> tmpp;
   while (tmpp!='0'){
     std::cin>>tmpp;
     selectItem(tmpp);

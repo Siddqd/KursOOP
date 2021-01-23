@@ -1,10 +1,11 @@
 #pragma once
-#include "Med.h";
+#include "Med.h"
 
 
-class MedHuman : virtual public Med
+class MedHuman : public Med
 {
 protected:
+	
 	std::string fio;
 	Data bday;
 	int64_t tel;
@@ -12,10 +13,13 @@ protected:
 	int64_t polis;
 
 public:
+	
+
 	std::string getFio();
 	void setFio(std::string fioo);
-	Data getData();
-	void setData(Data bdayy);
+	
+	Data getBday();
+	void setBday(Data bdayy);
 	int64_t getTel();
 	void setTel(int64_t tell);
 	int64_t getRes_tel();
