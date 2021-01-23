@@ -1,13 +1,12 @@
 #pragma once
 #include "Med.h"
-class MedRec : public Med
+class MedRec : public virtual Med
 {
 private:
-	char* IDP;
-	char* IDD;
+	int idc;
 	data data_in;
 	data data_out;
-	char stat;
+	int stat;
 	std::string recs;
 
 };
