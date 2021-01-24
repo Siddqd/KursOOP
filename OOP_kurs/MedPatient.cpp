@@ -83,17 +83,18 @@ int MedPatient::look4(const char* filePat) { //fio2 поиск по фио и Д
 		if (fPat.eof()) throw "Error_filePatient_is_EMPTY";
 	}	catch (const char* err) { std::cout << err; }//{std::cout<< err; fPat.close(); return -1;}
 
-        
-		fPat>>bar;                    // считываем первую строку - общее кол-во пациентов
-		fPat>>bar;					 // 2ю строку - номер крайнего пациента
+	while (!fPat.eof()) {
+			fPat>>bar;                    // считываем первую строку - общее кол-во пациентов
+			fPat>>bar;					 // 2ю строку(или 2е число) - номер крайнего пациента
 									//просто для пролистывания,хотя можно и вывести
-		while (!fPat.eof()) {
+		
 			fPat>>bar;							//считываем сигнатуру IDP
 			if (bar != "IDP") return -1;		//проверяем сигнатуру IDP //варик ? for(;bar!="IDP";	fPat>>bar)
 			fPat >> idpp;						//считали ID текущего пациента
 			if (id!=idpp){						//нужный пациент(выполнен поиск по ID) - пропускаем поиск по фио
 					fPat>>bar;					//считываем по идее FIO
 					if (bar != "FIO") return -1;;
+					getchar();
 					std::getline(fPat,bar);		//считали фамилию , но с пробелом в начале
 					if(" "+fio!=bar) continue; 		//если == , значит фамилия найдена,если != цикл начинаем сначала
 
@@ -107,14 +108,14 @@ int MedPatient::look4(const char* filePat) { //fio2 поиск по фио и Д
 										
 					//сразу поадаем сюда если bday.day==0 , то есть не задана ДР/ ищет первое совпадение по фио
 					//перезаписываем оставшиеся поля класса
-			} else {//сюда попадаем если удачно прошел поиск по ID
+			} else {	//сюда попадаем если удачно прошел поиск по ID и 
 						fPat >> bar; 
 						if (bar == "FIO") { bar = fPat.get(); std::getline(fPat, fio);}
 							 	else throw "Oops ... shit happens :|";
 						fPat >> bar; 
 						if (bar=="BDAY") {fPat>>bday.day; fPat>>bday.month; fPat>>bday.year;}
 							 	else throw "Oops ... shit happens :|";
-			}		//сюда уходим после совпадения по фио и дате ДР
+			}		//сюда уходим для проверки совпадения по фио и дате ДР
 			id=idpp;
 			try {
 				fPat >> bar; if (bar=="TEL") fPat>>tel; else throw "Oops ... shit happens :|";
@@ -130,26 +131,20 @@ int MedPatient::look4(const char* filePat) { //fio2 поиск по фио и Д
 			std::cout<<"		   			  Patient  ID : "<<id<<'\n';
 			std::cout<<"						Full name : "<<fio<<'\n';
 			std::cout<<"				    Birthday date : "<<bday.day<<' '<<bday.month<<' '<<bday.year<<'\n';
-			if (bday.day==0) continue;
+			if (bday.day==0) continue;	//если др не задан в начало цикла - выводим всех с такой фио пока не конец файла
 			std::cout<<"		     Patient phone number : "<<tel<<'\n';
 			std::cout<<"        Phone number of relatives : "<<res_tel<<'\n';
 			std::cout<<"						Polis num : "<<polis<<'\n';
 			if (status==0) std::cout<<"Sry, patient is game over ..";
 			if (status==2) std::cout<<"Patient was discharged out ..";
 			if (status==1) std::cout<<"Patient now in chamber num : " <<room_id<<'\n';
-			if (bday.day == 0) continue;
-				
+			//if (bday.day == 0) continue;
 
 			fPat.close();
 			return id; //возвращаем # id пациента - соответсвует номеру мед карты
-		}
-			
-							fPat.close();
-							std::cout << "You push key .. 4 or push key ... patient with entered data is not detected";
-							return -1;
-	
-		
-    fPat.close();
+	}
+	fPat.close();
+	std::cout << "You push key .. 4 or push key ... patient with entered data is not detected";
 	return -1;
 }
 
@@ -182,24 +177,30 @@ int MedPatient::ShowDataScr(const char* filePat) { //fio2 поиск по фио
 		if (id!=idpp){ //нужный пациент(выполнен поиск по ID) - пропускаем поиск по фио
 				fPat>>bar;						//считываем по идее FIO
 				if(bar!="FIO") continue;
-				std::getline(fPat, bar);							//считали фамилию , но с пробелом в начале
+				//getchar();
+				getline(fPat, bar);							//считали фамилию , но с пробелом в начале
 				if(" "+fio!=bar) continue; 		//если == , значит фамилия найдена
 				fPat >> bar;										//считываем сигнатуру ДР
 				if (bar!="BDAY") return -1;		//если да, если нет ошибка :[]
 				fPat >> bdres.day >> bdres.month >> bdres.year;			//считываем ДР
 
 				if (bdres.day!=0)
-				if (bdres.day!=bday.day || bdres.month!=bday.month || bdres.year!=bday.year) continue;
+					if (bdres.day!=bday.day || bdres.month!=bday.month || bdres.year!=bday.year) continue;
 					//если др не задано = 0, то пропускаем сравнение и выводим всех с такой ФИО
 					//сравниваем ДР с заданым, если нет идем к след фамилии
 					//если ок полное совпадение фио и др
 					//сразу поадаем сюда если bday.day==0 , то есть не задана ДР/ ищет первое совпадение по фио
 					//можно сделать вывод текущих данных с запросом дальнейшего поиска совпадений по фио
 					//перезаписываем оставшиеся поля класса
-		} else {//сюда попадаем если
-						fPat >> bar; if (bar=="TEL") fPat>>tel; else throw "Oops ... shit happens :|";
-						fPat >> bar; if (bar=="TEL") fPat>>tel; else throw "Oops ... shit happens :|";
-			}
+
+		} else {	//сюда попадаем если удачно прошел поиск по ID
+			fPat >> bar;
+			if (bar == "FIO") { bar = fPat.get(); std::getline(fPat, fio); }
+			else throw "Oops ... shit happens :|";
+			fPat >> bar;
+			if (bar == "BDAY") { fPat >> bday.day; fPat >> bday.month; fPat >> bday.year; }
+			else throw "Oops ... shit happens :|";
+		}	//сюда уходим после проверки совпадения по фио и дате ДР
 			id=idpp;
 			try {
 				fPat >> bar; if (bar=="TEL") fPat>>tel; else throw "Oops ... shit happens :|";
@@ -251,16 +252,17 @@ int MedPatient::AddNewData(const char* filePat) {
 	}
 	catch (const char* er) { std::cout << er;return -1; }
 	catch (int e) { }	//переходим сюда если файл пуст
-		++sum_pat;      //если не выкинуло, то места есть, прибавляем +1
-		++idpp;			//записываем ID для нового-текущего пациента
+	++sum_pat;      //если не выкинуло, то места есть, прибавляем +1
+	++idpp;			//записываем ID для нового-текущего пациента
 		//fPat.seekg(0, std::ios::beg);//встаем в начало файла
-		fPat.close();
-		fPat.open(filePat, std::ios::out); //открываем для файл для записи
-		fPat << sum_pat <<" "<< idpp;	//пишем новое значения общего числа пациентов и номер нового крайнего
-		fPat.close();
-	
+	fPat.close();
+	fPat.open(filePat, std::ios::out); //открываем для файл для записи
+	fPat << sum_pat <<" "<< idpp;	//пишем новое значения общего числа пациентов и номер нового крайнего
+	fPat.close();
+	id = idpp;
 	//ввод данных нового пациента
-	std::getline(std::cin , bar);
+	//std::getline(std::cin , bar);
+	std::getchar();//считываем символ /n после cin char из selectItem
 	std::cout<<"Введите ФИО (через пробел) : ";
 	std::getline(std::cin, fio);std::cout <<'\n'<< fio<<'\n';
 	std::cout<<"Введите день, месяц и год рождения(через пробел) : " ;
@@ -284,7 +286,7 @@ int MedPatient::AddNewData(const char* filePat) {
 	std::cin>>doc_id;
 
 	
-	fPat.open(filePat,std::ios::app|std::ios::in);	//добавляем нового пациента в конец файла
+	fPat.open(filePat,std::ios::out|std::ios::app);	//добавляем нового пациента в конец файла
 	fPat <<"\nIDP " << id << "\nFIO "<< fio<< "\nBDAY " <<bday.day<<" "<<bday.month<<" "<<
 		bday.year<<"\nTEL "<<tel<<"\nRES_TEL "<<res_tel<<"\nPOLIS "<<polis
 		<<"\nSTATUS "<<status<<"\nROOM_ID " <<room_id<<"\nDOC_ID "<<doc_id;

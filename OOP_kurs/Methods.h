@@ -7,7 +7,7 @@
 void rabbit() {
     system("cls");
     std::string os2 = "",os1 = "";
-    for(int i=1;i<10;i++){
+    for(int i=1;i<300;i++){
         if(!(i%50)) {
             os1 =" ";
             os2 = os2 + "\n\n\n";
@@ -55,7 +55,8 @@ void selectItem(char tmp) {
         medP.setID(bufInt);
         if (medP.getID()==0) {
             std::cout<<"Введите ФИО (через пробел latinicei) : ";
-  			getline(std::cin,bufStr);
+            getchar();
+            getline(std::cin,bufStr);
             medP.setFio(bufStr);
   			std::cout<<"Введите день, месяц и год рождения(через пробел) : " ;
             std::cout<<"(возможен поиск только по ФИО , для этого введите день '0' )";
