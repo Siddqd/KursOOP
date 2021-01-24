@@ -156,6 +156,9 @@
     <ClInclude Include="MedRoom.h" />
     <ClInclude Include="Methods.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="filePatient.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

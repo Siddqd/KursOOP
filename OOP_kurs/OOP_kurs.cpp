@@ -17,7 +17,7 @@ int main() {
     std::cout << "\nEnter the num of menu_item >>> ";
     std::cin>>tmpp;
     selectItem(tmpp);
-    system("clr");
+    system("cls");
   } while (tmpp != '0');
   return 0;
 }

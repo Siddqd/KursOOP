@@ -260,6 +260,7 @@ int MedPatient::AddNewData(const char* filePat) {
 		fPat.close();
 	
 	//ввод данных нового пациента
+	std::getline(std::cin , bar);
 	std::cout<<"Введите ФИО (через пробел) : ";
 	std::getline(std::cin, fio);std::cout <<'\n'<< fio<<'\n';
 	std::cout<<"Введите день, месяц и год рождения(через пробел) : " ;
@@ -268,15 +269,15 @@ int MedPatient::AddNewData(const char* filePat) {
 				if (bday.day<1||bday.day>31||bday.month<1||bday.month>12||bday.year<1910|| bday.year>2021) throw "Error_bday_input";
 	} catch (const char* err) {	std::cout << err << '\n';	return -1;	}	
 				
-	while (tel>89999999999) {
+	do  {
 		std::cout<<"Введите номер сотового телефона : " ;
 		std::cin>>tel;
-	}
+	} while (tel > 89999999999);
 	std::cout<<"Введите номер телефона родственника : " ;
 	std::cin>>res_tel;
 	std::cout<<"Введите номер медицинского полиса : ";
 	std::cin>>polis;
-	status=1;std::cout<<"Статус нового больного установлен : 1 - В больнице \n";
+	status=1;std::cout<<"Статус нового пациента установлен : 1 - В больнице \n";
 	std::cout<<"Введите номер палаты : "; //можно выводить список ближайших свободных палат
 	std::cin>>room_id;
 	std::cout<<"Введите id врача : ";		//можно выводить список врачей
@@ -284,9 +285,9 @@ int MedPatient::AddNewData(const char* filePat) {
 
 	
 	fPat.open(filePat,std::ios::app|std::ios::in);	//добавляем нового пациента в конец файла
-	fPat <<"\nIDP " << id << "\nFIO "<< fio<< "\nBDAY " <<bday.day<<bday.month<<bday.year<<
-	"\nTEL "<<tel<<"\nRES_TEL "<<res_tel<<"\nPOLIS "<<polis<<"'\nSTATUS "<<status<<
-	"\nROOM_ID " <<room_id<<"\nDOC_ID"<<doc_id;
+	fPat <<"\nIDP " << id << "\nFIO "<< fio<< "\nBDAY " <<bday.day<<" "<<bday.month<<" "<<
+		bday.year<<"\nTEL "<<tel<<"\nRES_TEL "<<res_tel<<"\nPOLIS "<<polis
+		<<"\nSTATUS "<<status<<"\nROOM_ID " <<room_id<<"\nDOC_ID "<<doc_id;
 	fPat.close();
 	return 0;
 }

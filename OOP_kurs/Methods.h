@@ -18,6 +18,7 @@ void rabbit() {
         std::cout<<os1<<"(\")(\")\n";
         os1 = os1 + "  ";
         system("cls");
+        
     }
 }
 void mainMenu() {
